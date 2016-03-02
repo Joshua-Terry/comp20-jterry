@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>My Old Kentucky Home</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+<h1 id="title">My Old Kentucky Home</h1>
+
+<video src="https://www.cs.tufts.edu/comp/20/my_old_kentucky_home.mp4" id="music_video" controls>
+</video>
+
+<div id="lyrics"></div>
+
+<script>
+	var vid = document.getElementById("music_video");
+	vid.addEventListener("timeupdate", lyric_modifier, false);
+
+	var first_stanza = " <br>The sun shines bright in My Old Kentucky Home,<br>Tis summer, the people are gay;<br>The corn-top's ripe and the meadow's in the bloom<br>While the birds make music all the day.<br><br><img src ='sun.jpg' alt='sunshine photo'><br>";
+ 
+
+
+	var second_stanza = "The young folks roll on the little cabin floor,<br>All merry, all happy and bright;<br>By 'n' by hard times comes a knocking at the door,<br>Then My Old Kentucky Home, good night!<br><br><img src ='children.jpg' alt='children photo'><br>";
+
+	var chorus = "Weep no more my lady<br>Oh weep no more today;<br>We will sing one song<br>For My Old Kentucky Home<br>For My Old Kentucky Home, far awaybr><br><img src ='oldHome.jpg' alt='Old Home photo'><br>";
+	
+
+	function lyric_modifier()
+	{
+		var SongLyrics = document.getElementById("lyrics");
+		if(vid.currentTime < 33)
+		{
+			SongLyrics.innerHTML = first_stanza;
+		}
+		else if (vid.currentTime < 63)
+		{
+			SongLyrics.innerHTML = second_stanza
+		}
+		else
+		{
+			SongLyrics.innerHTML = chorus;
+		}
+	}
+
+
+</script>
+</body>
+</html>	
