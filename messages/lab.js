@@ -14,12 +14,12 @@
 				elem = document.getElementById("list");
 			 for (i = 0; i < messageData["id"]["content"]["username"].length; i++) {
 				
-				message += "<p>messageData[i]["username"] + " said " + messageData[i]["content"]</p>
+				message += "<p>messageData[i]["username"] + " said " + messageData[i]["content"]</p>;
 				//	result += "<p>Next Red Line train to " + theScheduleData["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + ", " + theScheduleData["TripList"]["Trips"][i]["Destination"] + " bound, will come in " + theScheduleData["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + " seconds</p>";
 			}
 			elem.innerHTML = result;
 			}
 		};
-		// Step 3: Fire off the request
+		//Step 3: Fire off the request
 		request.send(null); // null means no data nec to send
 	</script>
