@@ -12,9 +12,9 @@
 				raw = request.responseText;
 				messageData = JSON.parse(raw);
 				elem = document.getElementById("list");
-			 for (i = 0; i < messageData["id"]["content"]["username"].length; i++) {
+			 for (i = 0; i < messageData.length; i++) {
 				
-				message += "<p>messageData[i]["username"] + " said " + messageData[i]["content"]</p>";
+				message += "<p>" + messageData[i]["username"] + " said " + messageData[i]["content"] + "</p>";
 				//result += "<p>Next Red Line train to " + theScheduleData["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + ", " + theScheduleData["TripList"]["Trips"][i]["Destination"] + " bound, will come in " + theScheduleData["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + " seconds</p>";
 			}
 			elem.innerHTML = result;
