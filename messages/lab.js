@@ -1,6 +1,6 @@
 // Your JavaScript goes here...
 
-<script>
+
 		request = new XMLHttpRequest();
 		// Step 1: Make request
 		request.open("GET", "data.json", true);
@@ -22,4 +22,3 @@
 		};
 		//Step 3: Fire off the request
 		request.send(null); // null means no data nec to send
-	</script>
