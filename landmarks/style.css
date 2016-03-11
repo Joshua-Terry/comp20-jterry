@@ -1,0 +1,10 @@
+body
+{
+	background-color: #000000
+}
+
+#map_canvas
+{
+	width: 90%;
+	height: 90%;
+}

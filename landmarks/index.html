@@ -5,19 +5,71 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Historic Landmarks</title>
-	<script>
-	//put JS stuff here
-	</script
->
+	<script type = "text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 	<link rel="stylesheet" href="style.css" type="text/css" />
 
 </head>
 
 
-<body onLoad> 
-	// google maps stuff should go here
-	<h1>Map</h1>
-	<div></div>
-</body>
+<script>
 
+	var userLat = 0;
+	var userLang = 0;
+	var request = new XMLHttpRequest();
+	var user = new google.maps.LatLng(userLat, userLang);
+	var myOptions = {
+				center: user,
+				zoom: 10, 
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			
+	var map;
+	var pinpoint;
+	var infowindow = new google.maps.InfoWindow();
+	
+	function init()
+	{
+		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		getMyLocation();
+	}
+	
+	function getMyLocation() {
+		if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
+			navigator.geolocation.getCurrentPosition(function(position) {
+				userLat = position.coords.latitude;
+				userLang = position.coords.longitude;
+				renderMap();
+			});
+		}
+		else {
+			alert("Geolocation is not supported by your web browser.  What a shame!");
+		}
+	}
+
+	function renderMap()
+	{
+		user = new google.maps.LatLng(userLat, userLang);
+		
+		// Update map and go there...
+		map.panTo(user);
+
+		// Create a pinpoint
+		pinpoint = new google.maps.pinpoint({
+			position: user,
+			title: "Here I Am!"
+		});
+		pinpoint.setMap(map);
+			
+		// Open info window on click of pinpoint
+		google.maps.event.addListener(pinpoint, 'click', function() {
+			infowindow.setContent(pinpoint.title);
+			infowindow.open(map, pinpoint);
+		});
+	}
+</script>
+</head>
+
+<body onload="init()">
+<div id="map_canvas"></div>
+</body>
 </html>
