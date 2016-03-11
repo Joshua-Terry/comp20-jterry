@@ -22,7 +22,7 @@
 				zoom: 10, 
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-			
+
 	var map;
 	var pinpoint;
 	var infowindow = new google.maps.InfoWindow();
@@ -54,7 +54,7 @@
 		map.panTo(user);
 
 		// Create a pinpoint
-		pinpoint = new google.maps.pinpoint({
+		pinpoint = new google.maps.Marker({
 			position: user,
 			title: "Here I Am!"
 		});
