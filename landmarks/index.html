@@ -12,7 +12,6 @@
 
 
 <script>
-
 	var userLat = 0;
 	var userLang = 0;
 	var request = new XMLHttpRequest();
@@ -22,10 +21,16 @@
 				zoom: 10, 
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-
 	var map;
 	var pinpoint;
 	var infowindow = new google.maps.InfoWindow();
+
+	request.open("POST", "https://defense-in-derpth.herokuapp.com/sendLocation", true);
+	request.send("REFUGIO_BENJAMIN", userLat,userLang)
+
+	rawMap = request.responseText;
+	mapData = JSON.parse(rawMap);
+	
 	
 	function init()
 	{
@@ -45,14 +50,12 @@
 			alert("Geolocation is not supported by your web browser.  What a shame!");
 		}
 	}
-
 	function renderMap()
 	{
 		user = new google.maps.LatLng(userLat, userLang);
 		
 		// Update map and go there...
 		map.panTo(user);
-
 		// Create a pinpoint
 		pinpoint = new google.maps.Marker({
 			position: user,
