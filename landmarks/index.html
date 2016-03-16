@@ -7,7 +7,6 @@
 	<title>Historic Landmarks</title>
 	<script type = "text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 	<link rel="stylesheet" href="style.css" type="text/css" />
-
 </head>
 
 
@@ -16,40 +15,48 @@
 	var userLang = 0;
 	var request = new XMLHttpRequest();
 	var user = new google.maps.LatLng(userLat, userLang);
-	var myOptions = {
-				center: user,
-				zoom: 10, 
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			};
+	var myOptions = 
+		{
+			center: user,
+			zoom: 10, 
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+
 	var map;
 	var pinpoint;
 	var infowindow = new google.maps.InfoWindow();
 
 	request.open("POST", "https://defense-in-derpth.herokuapp.com/sendLocation", true);
-	request.send("REFUGIO_BENJAMIN", userLat,userLang)
+	request.send("REFUGIO_BENJAMIN", userLat,userLang);
 
 	rawMap = request.responseText;
 	mapData = JSON.parse(rawMap);
 
 	
 	function init()
-	{
-		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-		getMyLocation();
-	}
+		{
+			map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+			getMyLocation();
+		}
 	
-	function getMyLocation() {
-		if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
-			navigator.geolocation.getCurrentPosition(function(position) {
-				userLat = position.coords.latitude;
-				userLang = position.coords.longitude;
-				renderMap();
-			});
+	function getMyLocation()
+		 {
+			if (navigator.geolocation) 
+				{ // the navigator.geolocation object is supported on your 	
+					browser
+					navigator.geolocation.getCurrentPosition(function(position)
+					{
+						userLat = position.coords.latitude;
+						userLang = position.coords.longitude;
+						renderMap();
+					});
+				}
+			else 
+			{
+				alert("Geolocation is not supported by your web browser.  What a shame!");
+			}
 		}
-		else {
-			alert("Geolocation is not supported by your web browser.  What a shame!");
-		}
-	}
+	
 	function renderMap()
 	{
 		user = new google.maps.LatLng(userLat, userLang);
