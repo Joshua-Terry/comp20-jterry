@@ -73,7 +73,7 @@
 	{
 
 		request.open("POST", "https://defense-in-derpth.herokuapp.com/sendLocation", true);
-		request.http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		request.send("login=REFUGIO_BENJAMIN&lat="+userLat+"&lng="+userLang);
 
 		rawMap = request.responseText;
