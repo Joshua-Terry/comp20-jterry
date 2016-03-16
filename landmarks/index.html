@@ -39,7 +39,6 @@
 					{
 						userLat = position.coords.latitude;
 						userLang = position.coords.longitude;
-						console.log(userLat + "/n" + userLang);
 						renderMap();
 
 					});
@@ -77,6 +76,7 @@
 		request.send("login=REFUGIO_BENJAMIN&lat="+userLat+"&lng="+userLang);
 		if (request.readyState == 4) {
 				mapData = JSON.parse(request.responseText);
+				console.log(mapData)
 			}
 
 	}
