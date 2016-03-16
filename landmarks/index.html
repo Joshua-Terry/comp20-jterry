@@ -32,11 +32,15 @@
 	
 	function getMyLocation() {
 
-				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
-					navigator.geolocation.getCurrentPosition(function(position) {
+				if (navigator.geolocation) 
+				{ // the navigator.geolocation object is supported on browser
+					navigator.geolocation.getCurrentPosition(function(position) 
+					{
 						userLat = position.coords.latitude;
 						userLang = position.coords.longitude;
 						renderMap();
+						console.log(userLat + "/n" + userLang);
+
 					});
 				}
 				else {
