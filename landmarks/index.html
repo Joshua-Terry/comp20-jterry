@@ -109,16 +109,14 @@
 
 		for(j =0; j < parsed.people.length; j++)
 		{
-			var image = 
+			var image = 'hiker.png'
 			var peopleMarker = new google.maps.Marker({
-    		position: map.getCenter(),
-    		icon: {
-      		path: google.maps.SymbolPath.CIRCLE,
-      		scale: 10
-   			 },
-    draggable: true,
-    map: map
-  });
+    		position: {lat: parsed.people[j].lat, lng: parsed.people[j].lng},
+    		map: map,
+    		icon: image
+    		  });
+
+			peopleMarker.setMap(map);
 		}
 		}
 
