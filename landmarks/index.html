@@ -16,20 +16,13 @@
 	var myOptions = 
 		{
 			center: user,
-			zoom: 10, 
+			zoom: 13, 
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 
 	var map;
 	var pinpoint;
 	var infowindow = new google.maps.InfoWindow();
-
-	request.open("POST", "https://defense-in-derpth.herokuapp.com/sendLocation", true);
-	request.send("REFUGIO_BENJAMIN", userLat,userLang);
-
-	rawMap = request.responseText;
-	mapData = JSON.parse(rawMap);
-
 	
 	function init()
 		{
@@ -63,16 +56,29 @@
 			title: "Here I Am!"
 		});
 		pinpoint.setMap(map);
-			
+		
+
+		getData();
 		// Open info window on click of pinpoint
 		google.maps.event.addListener(pinpoint, 'click', function() {
 			infowindow.setContent(pinpoint.title);
 			infowindow.open(map, pinpoint);
 		});
 	}
+
+	function getData()
+	{
+		request.open("POST", "https://defense-in-derpth.herokuapp.com/sendLocation", true);
+		request.send("REFUGIO_BENJAMIN", userLat,userLang);
+
+		rawMap = request.responseText;
+		mapData = JSON.parse(rawMap);
+
+	}
 </script>
+
 <head>
-	
+
 	<body onload="init()">
 		<div id="map_canvas"></div>
 	</body>
