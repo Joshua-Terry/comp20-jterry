@@ -62,7 +62,7 @@
 		pinpoint.setMap(map);
 		
 
-		getData();
+		getData(userLat, userLang);
 		// Open info window on click of pinpoint
 		google.maps.event.addListener(pinpoint, 'click', function() {
 			infowindow.setContent(pinpoint.title);
@@ -70,10 +70,10 @@
 		});
 	}
 
-	function getData()
+	function getData(lat, lng)
 	{
 		request.open("POST", "https://defense-in-derpth.herokuapp.com/sendLocation", true);
-		request.send("REFUGIO_BENJAMIN", userLat,userLang);
+		request.send(login = "REFUGIO_BENJAMIN", lat=lat,lng=lng);
 
 		rawMap = request.responseText;
 		mapData = JSON.parse(rawMap);
