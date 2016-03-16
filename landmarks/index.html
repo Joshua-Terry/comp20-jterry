@@ -16,6 +16,10 @@
 	var mapData;
 	var rawMap;
 	var map;
+	var closestDistance;
+	var pinpoint;
+	var closestLat;
+	var closestLng; 
 
 	var myOptions = 
 		{
@@ -68,6 +72,7 @@
 		google.maps.event.addListener(pinpoint, 'click', function() {
 			infowindow.setContent(pinpoint.title);
 			infowindow.open(map, pinpoint);
+			drawLine();
 		});
 
 		getData();
@@ -98,11 +103,15 @@
 	{
 		for(i=0;i < parsed.landmarks.length; i++)
 		{
+			LMlat =parsed.landmarks[i].geometry.coordinates[1];
+			LMlang =parsed.landmarks[i].geometry.coordinates[0];
 		    var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+		    var distance = haversine(userLat,userLang,LMlat,LMlang);
   			var landmarkMarker = new google.maps.Marker({
-    		position: {lat: parsed.landmarks[i].geometry.coordinates[1], lng: parsed.landmarks[i].geometry.coordinates[0]},
+    		position: {lat:LMlat , lng: LMlang },
     		map: map,
-    		icon: image
+    		icon: image,
+    		title: parsed.landmarks[i].properties.Details + "<br>" + "Distance from you " + distance
     	    });
 			landmarkMarker.setMap(map);
 			landmarkMarker.addListener('click', function() {
@@ -110,8 +119,13 @@
 				infowindow.open(map, this);
 			});
 
-	
-
+			if(i==0 || distance < closestDistance)
+			{
+				closestLat = LMlat;
+				closestLng = LMlang;
+				pinpoint.setTitle("I am REFUGIO_BENJAMIN <br>" +
+  					"The closest landmark is " + parsed.landmarks[i].properties.Location_Name + "<br> Distance to you(mi) :" + distance)
+			}
 		}
 
 		for(j =0; j < parsed.people.length; j++)
@@ -163,6 +177,19 @@ function haversine(lat1, lon1, lat2,lon2,isMiles) {
   return d;
 }
 	
+function drawLine()
+{
+
+	var line = new google.maps.Polyline({
+    path: [{lat: userLat, lng:userLang}, {lat:closestLat,lng:closestLng}],
+    geodesic: true,
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
+
+	line.setMap(map);
+}
 </script>
 
 </head>
