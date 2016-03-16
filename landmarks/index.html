@@ -134,7 +134,6 @@
 			personlat = parsed.people[j].lat;
 			personlng = parsed.people[j].lng;
 			var distance = haversine(userLat,userLang,personlat,personlng, true);
-			console.log(parsed.people[j].login);
 			var peopleMarker = new google.maps.Marker({
     		position: {lat: personlat, lng: personlng},
     		map: map,
