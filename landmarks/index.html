@@ -13,6 +13,9 @@
 	var userLang = 0;
 	var request = new XMLHttpRequest();
 	var user = new google.maps.LatLng(userLat, userLang);
+	var mapData;
+	var rawMap;
+	var map;
 
 	var myOptions = 
 		{
@@ -74,10 +77,55 @@
 		request.open("POST", "https://defense-in-derpth.herokuapp.com/sendLocation", true);
 		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		request.send("login=REFUGIO_BENJAMIN&lat="+userLat+"&lng="+userLang);
-		mapData = JSON.parse(request.responseText);
-		console.log(mapData);
+		var raw;
+			request.onload = function() 
+			{
+				raw= this.responseText;
+				  if (request.readyState == 4 )
+				  {
+					raw= request.responseText;
+					parsed = JSON.parse(raw);
+					console.log(raw);
+					useData(parsed, userLang, userLat);
+				  }
 
-	}
+			}
+
+		}
+
+		function useData(parsed,userLang,useLat)
+	{
+		for(i=0;i < parsed.landmarks.length; i++)
+		{
+		    var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+  			var landmarkMarker = new google.maps.Marker({
+    		position: {lat: parsed.landmarks[i].geometry.coordinates[1], lng: parsed.landmarks[i].geometry.coordinates[0]},
+    		map: map,
+    		icon: image
+    	    });
+			landmarkMarker.setMap(map);
+
+		}
+
+		for(j =0; j < parsed.people.length; j++)
+		{
+			var image = 
+			var peopleMarker = new google.maps.Marker({
+    		position: map.getCenter(),
+    		icon: {
+      		path: google.maps.SymbolPath.CIRCLE,
+      		scale: 10
+   			 },
+    draggable: true,
+    map: map
+  });
+		}
+		}
+
+
+	
+
+
 </script>
 
 </head>
