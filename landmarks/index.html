@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html>
 
 <head>
@@ -5,8 +7,6 @@
 	<title>Historic Landmarks</title>
 	<script type = "text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 	<link rel="stylesheet" href="style.css" type="text/css" />
-</head>
-
 
 <script>
 	var userLat = 0;
@@ -37,22 +37,19 @@
 			getMyLocation();
 		}
 	
-	function getMyLocation()
-		 {
-			if (navigator.geolocation) 
-				{ // the navigator.geolocation object is supported on your 	
-				   navigator.geolocation.getCurrentPosition(function(position)
-					{
+	function getMyLocation() {
+
+				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
+					navigator.geolocation.getCurrentPosition(function(position) {
 						userLat = position.coords.latitude;
 						userLang = position.coords.longitude;
 						renderMap();
 					});
 				}
-			else 
-			{
-				alert("Geolocation is not supported by your web browser.  What a shame!");
+				else {
+					alert("Geolocation is not supported by your web browser.  What a shame!");
+				}
 			}
-		}
 	
 	function renderMap()
 	{
@@ -74,10 +71,10 @@
 		});
 	}
 </script>
-
-
-<body onload="init()">
-<div id="map_canvas"></div>
-</body>
+<head>
+	
+	<body onload="init()">
+		<div id="map_canvas"></div>
+	</body>
 
 </html>
