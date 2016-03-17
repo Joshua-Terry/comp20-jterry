@@ -6,7 +6,33 @@
 	<title>Captain's Log</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script>
-	  // Your work will be done here...
+	$(document).ready(function()
+	{
+		//jQuery(window).load(function () {
+		$("#msg").keyup(function(event)
+		 {
+		    if(event.keyCode == 13)
+		    {
+		    	console.log("recognized loop");
+		    	var text = document.getElementById("msg").value;
+				localStorage.setItem( new Date(), text);
+				//divElem = document.getElementById("log");
+				//input = "";
+				for (key in localStorage)
+				{
+					console.log("key: " + key);
+					console.log(localStorage.getItem(key));
+					$('#log').prepend(localStorage.getItem(key) + "<br>");
+				}		
+
+		 
+
+		 
+		 	}
+			//var unixTimestamp = new Date(); // in milliseconds
+			//console.log(unixTimestamp);
+		});
+	});
 	</script>
 </head>
 
