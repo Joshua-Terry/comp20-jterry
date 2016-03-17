@@ -8,29 +8,23 @@
 	<script>
 	$(document).ready(function()
 	{
+		for (key in localStorage)
+		{
+			$('#log').prepend(localStorage.getItem(key) + " " + key + "<br>");
+		}
+
 		//jQuery(window).load(function () {
 		$("#msg").keyup(function(event)
 		 {
 		    if(event.keyCode == 13)
 		    {
-		    	console.log("recognized loop");
 		    	var text = document.getElementById("msg").value;
-				localStorage.setItem( new Date(), text);
-				//divElem = document.getElementById("log");
-				//input = "";
+				localStorage.setItem(new Date(), text);
 				for (key in localStorage)
 				{
-					console.log("key: " + key);
-					console.log(localStorage.getItem(key));
-					$('#log').prepend(localStorage.getItem(key) + "<br>");
-				}		
-
-		 
-
-		 
+					$('#log').prepend(localStorage.getItem(key) + " " + key + "<br>");
+				}				 
 		 	}
-			//var unixTimestamp = new Date(); // in milliseconds
-			//console.log(unixTimestamp);
 		});
 	});
 	</script>
