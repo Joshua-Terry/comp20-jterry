@@ -81,7 +81,7 @@
 	function getData()
 	{
 
-		request.open("POST", "https://defense-in-derpth.herokuapp.com/sendLocation", true);
+		request.open("POST", "http://fast-river-52634.herokuapp.com/sendlocation", true);
 		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		request.send("login=REFUGIO_BENJAMIN&lat="+userLat+"&lng="+userLang);
 		var raw;
