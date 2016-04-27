@@ -27,13 +27,13 @@
 	<strong>Issue:</strong> Null creation of Lat and Lng <br>
 	<strong>Location:</strong> /sendLocation <br>
 	<strong>Severity:</strong> Low, the passing of non numerical data for lat and lat in /sendlocation results in null entry. This causes a error in the A2 rendering, but outside of that  <br>
-	<strong>Proof:</strong> <img src ="Ryan_Lat_Null.jpeg" alt = "Null lat and lng" title = "Null Lat and Lng" /> </a> see the null values for lat and lng<br>
+	<strong>Proof:</strong> <img src ="Ryan_Lat_Null.jpg" alt = "Null lat and lng" title = "Null Lat and Lng" /> </a> see the null values for lat and lng<br>
 	<strong>Resolution:</strong> The existing code simply performs parseFloat() on whatever data is passed. The code should confirm if that passed data is numerical and toss a error if it is not <br> <br>
 
 	<strong>Issue:</strong> Multiple logins for a give document  <br>
 	<strong>Location:</strong> /sendLocation <br>
 	<strong>Severity:</strong> Low, this causes issues with /checkins.json, since the API post allows for a given entry to have multiple login parameters<br>
-	<strong>Proof:</strong> <img src = "Ryan_Lat_Null.jpeg" alt= "Multiple logins" title = "getting multiple logins in DB" /></a><br>
+	<strong>Proof:</strong> <img src = "Ryan_Lat_Null.jpg" alt= "Multiple logins" title = "getting multiple logins in DB" /></a><br>
 	<strong>Resolution:</strong> The API should check that there is only one of each param asked for in the request, also it could simply delimit the login param to first one received <br> <br>
 
 </p>
