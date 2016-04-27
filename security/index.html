@@ -1,0 +1,42 @@
+<head>
+<title>Joshua Terry Security Report</title>
+</head>
+<body>
+<h1>Joshua Terry's Security Accessment of Ryan's A2 & A3</h1>
+<h2>Introduction</h2>
+<p>This assessment is focused on the Assignment 2 and 3 web applications that were created by Ryan Osgood. The goal was to employ several processes to find and exploit security weaknesses in the code written. <br> <br> Before diving into the specifics of the findings, it is important to define what would be considered a weaknesses, several of the specifications that were required for Ryan's project deliberately left weaknesses. Most notably requirement that any user be able to post to the API, thus lack of a client side authenications, such as a API key, which immediately creates concerns of throughput abuse. Ultimately I determined that a weaknesses would be determined if the exploit could have been defended against with measures that did that go against that of the inital spec.
+</p>
+
+<h2>Methodology</h2>
+<p>For this assignment I first employed white hat methods, testing for security weaknesses purely based on the interface that is provided to every single external user. This was followed by a black hat assessment where I had access to Ryan's assignment source code and combed through the functions to additional issues. </p>
+<h2>Findings Abstract</h2>
+<p>The majority of the findings found in this assessment were caused by the lack of cleansing of user inputted data. Despite the fact we hope that users have others best interest at heart, the lack of cleansing of data specifically inputted into the login param of getLocation created several possible security weakness paths</p>
+<h2>Found Issues</h2>
+<p><strong>Issue:</strong> Cross Site Scripting <br>
+	<strong>Location:</strong> Scripts is passed via /sendLocation but is ran on /index.html <br>
+	<strong>Severity:</strong> HIGH, this allows for the running of unexpected javascript by ever user that goes to Ryans index page<br>
+	<strong>Proof:</strong> See the redirect that occurs when you visit <a href="polar-dawn-55264.herokuapp.com/">Ryan's site</a>. <br>
+	<strong>Resolution:</strong> To work against this, the sendlocation code should check for script tags in any input, throwing a error at any code that contains script.  <br> <br>
+
+	<strong>Issue:</strong> Plain text MongoDB password <br>
+	<strong>Location:</strong> Assignment 4 code <br>
+	<strong>Severity:</strong> HIGH, this would allow for a bad act to take control of all user data  <br>
+	<strong>Proof:</strong> For security purposes I rather not post a screenshot or any plain text source of Ryan's mongoDB username and password. It's in his A4 code for index.js on line 14. He defined his mongoUri by db name and password.<br>
+	<strong>Resolution:</strong> Do not put your mongo details, especially password, in plain text. While it is unlikely that a bad actor would get your source code, in this case it would allow the full query and/or destruction of existing user data. <br> <br>
+
+	<strong>Issue:</strong> Null creation of Lat and Lng <br>
+	<strong>Location:</strong> /sendLocation <br>
+	<strong>Severity:</strong> Low, the passing of non numerical data for lat and lat in /sendlocation results in null entry. This causes a error in the A2 rendering, but outside of that  <br>
+	<strong>Proof:</strong> <img src ="Ryan_Lat_Null.jpeg" alt = "Null lat and lng" title = "Null Lat and Lng" /> </a> see the null values for lat and lng<br>
+	<strong>Resolution:</strong> The existing code simply performs parseFloat() on whatever data is passed. The code should confirm if that passed data is numerical and toss a error if it is not <br> <br>
+
+	<strong>Issue:</strong> Multiple logins for a give document  <br>
+	<strong>Location:</strong> /sendLocation <br>
+	<strong>Severity:</strong> Low, this causes issues with /checkins.json, since the API post allows for a given entry to have multiple login parameters<br>
+	<strong>Proof:</strong> <img src = "Ryan_Lat_Null.jpeg" alt= "Multiple logins" title = "getting multiple logins in DB" /></a><br>
+	<strong>Resolution:</strong> The API should check that there is only one of each param asked for in the request, also it could simply delimit the login param to first one received <br> <br>
+
+</p>
+<h2>Conclusion</h2>
+<p> Overall Ryan's code simply made the mistake of being too trusting of user output, outside of the plaintext availblity of his Mongo password, each of the existing weaknesses was caused by the user's ablity to pass data through the sendlocation that either created a weakness in another page or caused a computational issue. Completely, as Ming reccommended: "We shall not trust user input". </p>
+<body>
